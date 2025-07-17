@@ -1,3 +1,4 @@
+cat > README.md << 'EOF'
 # Terraform AWS CI/CD Static Website Pipeline
 
 This project demonstrates a complete **CI/CD pipeline** for deploying a static website to AWS S3 using:
@@ -48,16 +49,26 @@ The infrastructure is fully defined using Terraform, including:
    ```bash
    git clone https://github.com/CheaTheReal/terraform-s3-cicd-pipeline.git
    cd terraform-s3-cicd-pipeline
-Edit terraform.tfvars with your values:
-bucket_name    = "your-unique-s3-bucket-name"
-repo_name      = "YourGitHubUser/terraform-s3-cicd-pipeline"
-branch         = "main"
-connection_arn = "arn:aws:codeconnections:region:account-id:connection/your-connection-id"
-Initialize Terraform:
-terraform init
-Apply the infrastructure:
-terraform apply -var-file="terraform.tfvars"
-After successful apply, your pipeline and S3 website will be created.
+
+2. Edit terraform.tfvars with your values:
+
+   bucket_name    = "your-unique-s3-bucket-name"
+   repo_name      = "YourGitHubUser/terraform-s3-cicd-pipeline"
+   branch         = "main"
+   connection_arn = "arn:aws:codeconnections:region:account-id:connection/your-connection-id"
+
+3. Initialize Terraform:
+
+   terraform init
+
+4. Apply the infrastructure:
+
+   terraform apply -var-file="terraform.tfvars"
+
+5. After successful apply, your pipeline and S3 website will be created.
+
+6. Push changes to the main branch in GitHub to trigger the pipeline.
+
 Push changes to the main branch in GitHub to trigger the pipeline.
 Testing Your Pipeline
 
@@ -90,6 +101,3 @@ GitHub Profile
 License
 
 This project is licensed under the MIT License.
-
-
----
