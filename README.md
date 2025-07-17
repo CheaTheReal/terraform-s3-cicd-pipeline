@@ -1,14 +1,11 @@
-cat > README.md << 'EOF'
 # Terraform AWS CI/CD Static Website Pipeline
 
-This project demonstrates a complete **CI/CD pipeline** for deploying a static website to AWS S3 using:
+This project demonstrates a complete CI/CD pipeline for deploying a static website to AWS S3 using:
 
 - Terraform (Infrastructure as Code)
 - AWS CodePipeline (CI/CD orchestration)
 - AWS CodeBuild (build & artifact management)
 - GitHub (source code repository)
-
----
 
 ## Project Overview
 
@@ -21,26 +18,20 @@ The infrastructure is fully defined using Terraform, including:
 - CodeBuild project that builds the website (runs a simple buildspec)
 - CodePipeline that connects GitHub source → build → deploy stages
 
----
-
 ## How It Works
 
-1. **Push to GitHub:** When a commit is pushed to the `main` branch, GitHub triggers the AWS CodePipeline.  
-2. **CodePipeline Source Stage:** Pulls the latest code from GitHub via CodeStar connection.  
-3. **CodeBuild Stage:** Runs the `buildspec.yml`, which in this case just prepares files for deployment.  
-4. **Deploy Stage:** Uploads the built files to the S3 bucket.  
+1. **Push to GitHub:** When a commit is pushed to the `main` branch, GitHub triggers the AWS CodePipeline.
+2. **CodePipeline Source Stage:** Pulls the latest code from GitHub via CodeStar connection.
+3. **CodeBuild Stage:** Runs the `buildspec.yml`, which in this case just prepares files for deployment.
+4. **Deploy Stage:** Uploads the built files to the S3 bucket.
 5. **Static Website Live:** Your website is available via the S3 website endpoint.
-
----
 
 ## Prerequisites
 
-- AWS account with permissions to create IAM roles, S3 buckets, CodeBuild, and CodePipeline resources  
-- Terraform installed locally  
-- AWS CLI configured with credentials  
+- AWS account with permissions to create IAM roles, S3 buckets, CodeBuild, and CodePipeline resources
+- Terraform installed locally
+- AWS CLI configured with credentials
 - GitHub repository with your website files and this Terraform code
-
----
 
 ## Setup & Deployment
 
@@ -56,48 +47,58 @@ The infrastructure is fully defined using Terraform, including:
    repo_name      = "YourGitHubUser/terraform-s3-cicd-pipeline"
    branch         = "main"
    connection_arn = "arn:aws:codeconnections:region:account-id:connection/your-connection-id"
-
-3. Initialize Terraform:
+ 
+3. Initialize Terrform:
 
    terraform init
 
-4. Apply the infrastructure:
-
-   terraform apply -var-file="terraform.tfvars"
+4. Apply the infrastructure: terraform apply -var-file="terraform.tfvars"
 
 5. After successful apply, your pipeline and S3 website will be created.
 
-6. Push changes to the main branch in GitHub to trigger the pipeline.
-
-Push changes to the main branch in GitHub to trigger the pipeline.
-Testing Your Pipeline
-
-Make a simple change in index.html (e.g., edit header text).
-Commit and push your change to GitHub.
-Go to AWS Console → CodePipeline → static-site-pipeline to watch the deployment.
-Visit your S3 website URL (shown as output by Terraform) to confirm the update.
-Screenshots
-
-CodePipeline Pipeline Status
+6. After successful apply, your pipeline and S3 website will be created.
 
 
-CodeBuild Build Logs
-Deployed Static Site
+---
 
+### Step 6: Testing Your Pipeline
 
-Technologies Used
+```markdown
+## Testing Your Pipeline
 
-Terraform
-AWS S3
-AWS IAM
-AWS CodeBuild
-AWS CodePipeline
-GitHub
-Author
+- Make a simple change in `index.html` (e.g., edit header text).
+- Commit and push your change to GitHub.
+- Go to AWS Console → CodePipeline → `static-site-pipeline` to watch the deployment.
+- Visit your S3 website URL (shown as output by Terraform) to confirm the update.
 
-Fernando Perez (CheaTheReal)
-GitHub Profile
+## Screenshots
 
-License
+### CodePipeline Pipeline Status  
+![Pipeline Status](screenshots/codepipeline-success.png)
+
+### CodeBuild Build Logs  
+![CodeBuild Logs](screenshots/codebuild-logs.png)
+
+### Deployed Static Site  
+![Static Site Screenshot](screenshots/static-site-live.png)
+
+## Technologies Used
+
+- Terraform  
+- AWS S3  
+- AWS IAM  
+- AWS CodeBuild  
+- AWS CodePipeline  
+- GitHub  
+
+## Author
+
+Fernando Perez (CheaTheReal)  
+[GitHub Profile](https://github.com/CheaTheReal)
+
+---
+
+## License
 
 This project is licensed under the MIT License.
+
