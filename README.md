@@ -49,3 +49,57 @@ The infrastructure is fully defined using Terraform, including:
    git clone https://github.com/CheaTheReal/terraform-s3-cicd-pipeline.git
    cd terraform-s3-cicd-pipeline
 
+2. Edit terraform.tfvars with your values:
+
+   bucket_name    = "your-unique-s3-bucket-name"
+   repo_name      = "YourGitHubUser/terraform-s3-cicd-pipeline"
+   branch         = "main"
+   connection_arn = "arn:aws:codeconnections:region:account-id:connection/your-connection-id"
+
+3. Initialize Terraform:
+
+   terraform init
+
+4. Apply the infrastructure: 
+
+   terraform apply -var-file="terraform.tfvars"
+
+5. After successful apply, your pipeline and S3 website will be created.
+
+6. Push changes to the main branch in GitHub to trigger the pipeline.
+
+Testing Your Pipeline
+
+Make a simple change in index.html (e.g., edit header text).
+Commit and push your change to GitHub.
+Go to AWS Console → CodePipeline → static-site-pipeline to watch the deployment.
+Visit your S3 website URL (shown as output by Terraform) to confirm the update.
+
+Technologies Used
+
+Terraform
+AWS S3
+AWS IAM
+AWS CodeBuild
+AWS CodePipeline
+GitHub
+Author
+
+Fernando Perez (CheaTheReal)
+GitHub Profile
+
+License
+
+This project is licensed under the MIT License.
+
+## Screenshots
+
+### CodePipeline Pipeline Status  
+![Pipeline Status](screenshots/codepipeline-success.png)
+
+### CodeBuild Build Logs  
+![CodeBuild Logs](screenshots/codebuild-logs.png)
+
+### Deployed Static Site  
+![Static Site Screenshot](screenshots/static-site-live.png)
+
