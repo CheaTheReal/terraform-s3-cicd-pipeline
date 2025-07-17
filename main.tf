@@ -77,7 +77,7 @@ resource "aws_iam_role_policy" "codebuild_logs_policy" {
 }
 
 resource "aws_iam_role_policy" "codebuild_s3_read_policy" {
-  name = "AllowS3ReadForBuildArtifacts"
+  name = "AllowS3ReadWriteForBuildArtifacts"
   role = aws_iam_role.codebuild_service_role.name
 
   policy = jsonencode({
@@ -85,7 +85,10 @@ resource "aws_iam_role_policy" "codebuild_s3_read_policy" {
     Statement = [
       {
         Effect = "Allow",
-        Action = ["s3:GetObject"],
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
         Resource = ["${aws_s3_bucket.static_site.arn}/*"]
       }
     ]
@@ -102,14 +105,14 @@ resource "aws_codebuild_project" "static_site_build" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:5.0"
-    type                        = "LINUX_CONTAINER"
-    privileged_mode             = false
+    compute_type    = "BUILD_GENERAL1_SMALL"
+    image           = "aws/codebuild/standard:5.0"
+    type            = "LINUX_CONTAINER"
+    privileged_mode = false
   }
 
   source {
-    type = "CODEPIPELINE"
+    type     = "CODEPIPELINE"
     buildspec = file("buildspec.yml")
   }
 }
